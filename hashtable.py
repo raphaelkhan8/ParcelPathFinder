@@ -45,7 +45,6 @@ class HashTable:
             for pair in self.table[hash_key]:
                 if pair[0] == key:
                     pair[1] = value
-                    print(pair[1])
                     return True
         else:
             print('There was an error with updating on key: ' + key)
