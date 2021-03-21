@@ -2,7 +2,7 @@
 # Student_ID: 001546693
 
 from csv_parser import get_hash_table
-from deliveries import total_distance, print_delivery_info
+from deliveries import get_total_distance, print_delivery_info
 import datetime
 
 
@@ -11,7 +11,7 @@ class Main:
         pass
 
     # Round the total mileage to tenth place and bold text
-    total_mileage = '\033[1m' + "{0:.1f}".format(total_distance()) + ' miles.' + '\033[0m'
+    total_mileage = '\033[1m' + "{0:.1f}".format(get_total_distance()) + ' miles.' + '\033[0m'
 
     # Welcome message and display total mileage
     print('Welcome to the WGUPS package finder!\n')

@@ -1,4 +1,4 @@
-# this file parses the DeliveryInfo csv file to do the following:
+# This file parses the DeliveryInfo csv file to do the following:
 # extract each individual delivery (row),
 # convert each row into a delivery object,
 # load the delivery objects onto their associated truck for delivery
@@ -79,7 +79,5 @@ with open('DeliveryInfo.csv') as f:
     def get_first_truck_second_trip_packages():
         return first_truck_second_trip
 
-print(get_first_truck_packages())
-print(get_second_truck_packages())
-print(get_first_truck_second_trip_packages())
+    
 

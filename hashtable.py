@@ -1,5 +1,4 @@
-# implementation of a hash table (will be used for storing package data):
-
+# Implementation of a hash table (will be used for storing package data):
 
 # Class for individual hash table entry object
 class HashTableEntry:
