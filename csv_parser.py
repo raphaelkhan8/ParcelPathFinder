@@ -28,8 +28,11 @@ with open('DeliveryInfo.csv') as f:
         deadline = row[5]
         weight = row[6]
         delivery_note = row[7]
-        delivery_status = 'At hub'
-        delivery_info = [package_ID, address, city, state, zipcode, deadline, weight, delivery_note, delivery_status]
+        delivery_status = ''
+        delivery_start = ''
+        address_location = ''
+        delivery_info = [package_ID, address, city, state, zipcode, deadline, weight, delivery_note, delivery_start,
+                         delivery_status, address_location]
 
         key = package_ID
         value = delivery_info
@@ -48,7 +51,7 @@ with open('DeliveryInfo.csv') as f:
         # Fix the wrong address package and add it to the first truck (second trip)
         if '84104' in value[4] and '10:30' not in value[5]:
             first_truck_second_trip.append(value)
-        if 'Wrong address listed' in value[8]:
+        if 'Wrong address listed' in value[7]:
             value[1] = '410 S State St'
             value[4] = '84111'
             first_truck_second_trip.append(value)
@@ -73,10 +76,10 @@ with open('DeliveryInfo.csv') as f:
         return second_truck
 
     # Getter to retrieve a list of the packages on the first truck (second trip)
-    def check_first_truck_second_trip_packages():
+    def get_first_truck_second_trip_packages():
         return first_truck_second_trip
 
 print(get_first_truck_packages())
 print(get_second_truck_packages())
-print(check_first_truck_second_trip_packages())
+print(get_first_truck_second_trip_packages())
 
