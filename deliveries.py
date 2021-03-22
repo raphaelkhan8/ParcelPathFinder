@@ -42,6 +42,8 @@ def get_total_distance():
 
 
 # Method to handle/optimize each truck route (aggregates required info and passes that info to greedy algorithm)
+# Time Complexity: Quadratic or O(N^2) - the items traversed grows at a quadratic rate due to two for loops
+# Space Complexity: Quadratic or O(N^2) - the variables created grow at a quadratic rate due to two for loops
 def handle_delivery(truck_number):
 
     # Initialize global variables (will change based on passed-in truck_number)
@@ -123,6 +125,8 @@ handle_delivery(3)
 
 
 # Method to print required delivery information
+# Time Complexity: Constant or O(1) - the passed-in index allows for constant retrieval time
+# Space Complexity: Constant or O(1) - will always create the same number of variables / print the same number of items
 def print_delivery_info(index, comparison_time):
     # Convert the string times to datetime.timedelta
     try:
