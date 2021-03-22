@@ -83,7 +83,7 @@ def handle_delivery(truck_number):
     try:
         count = 0
         for k in truck_packages:
-            for j in check_address():
+            for j in get_addresses():
                 if k[1] == j[2]:
                     truck_distances.append(j[0])
                     truck_packages[count][10] = j[0]
@@ -102,11 +102,11 @@ def handle_delivery(truck_number):
         try:
             # Calculate the total distance of the truck
             global total_delivery_distance
-            truck_distance = check_distance(int(optimized_truck_index_list[index]),
+            truck_distance = get_distance(int(optimized_truck_index_list[index]),
                                                         int(optimized_truck_index_list[index + 1]))
             total_delivery_distance = total_delivery_distance + truck_distance
             # Get the delivered or estimated delivery time and update it in the associated delivery object
-            delivery_time = get_delivery_time(check_current_distance(int(optimized_truck_index_list[index]),
+            delivery_time = get_delivery_time(get_distance(int(optimized_truck_index_list[index]),
                                                                       int(optimized_truck_index_list[index + 1])),
                                                truck_number)
             optimized_truck_list(truck_number)[truck_package_id][9] = (str(delivery_time))
