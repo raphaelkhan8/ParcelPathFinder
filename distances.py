@@ -123,19 +123,19 @@ with open('Destinations.csv') as destination_f:
         # While the input list in not empty:
         else:
             try:
-                lowest_value = 50.0
-                # Initialize a location variable (this will correspond to the new lowest distance package)
+                shortest_distance = 100.0
+                # Initialize a location variable (this will correspond to the new shortest distance package)
                 new_location = 0
                 # Loop through the entire distance list and find the shortest distance
                 for index in truck_distance_list:
-                    if get_distance(current_location, int(index[10])) <= lowest_value:
-                        lowest_value = get_distance(current_location, int(index[10]))  # section 3
+                    if get_distance(current_location, int(index[10])) <= shortest_distance:
+                        shortest_distance = get_distance(current_location, int(index[10]))  # section 3
                         new_location = int(index[10])
                 # Add the delivery object corresponding to the shortest distance index to its associated truck
                 # Then, pop off the just added value from the original passed-in list and recursively repeat the
                 # process until the base case is hit
                 for index in truck_distance_list:  # section 4
-                    if get_distance(current_location, int(index[10])) == lowest_value:
+                    if get_distance(current_location, int(index[10])) == shortest_distance:
                         if truck_number == 1:
                             first_optimized_truck.append(index)
                             first_optimized_truck_index_list.append(index[10])
