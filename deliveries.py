@@ -107,7 +107,6 @@ def handle_delivery(truck_number):
             truck_distance = get_distance(int(optimized_truck_index_list[index]),
                                                         int(optimized_truck_index_list[index + 1]))
             total_delivery_distance = total_delivery_distance + truck_distance
-            # Get the delivered or estimated delivery time and update it in the associated delivery object
             delivery_time = get_delivery_time(get_distance(int(optimized_truck_index_list[index]),
                                                                       int(optimized_truck_index_list[index + 1])),
                                                truck_number)
@@ -152,4 +151,4 @@ def print_delivery_info(index, comparison_time):
     print('ID:', get_hash_table().get(str(index))[0], '  Address:', get_hash_table().get(str(index))[1],
           '  City:', get_hash_table().get(str(index))[2] + ',', get_hash_table().get(str(index))[3],
           '  Zipcode:', get_hash_table().get(str(index))[4], '  Weight:', get_hash_table().get(str(index))[6] + ' lbs',
-          '  Deadline:', get_hash_table().get(str(index))[5], '  Delivery Status:', get_hash_table().get(str(index))[9])
+          '  Deadline:', get_hash_table().get(str(index))[5], ' Delivery Status:', get_hash_table().get(str(index))[9])

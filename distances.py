@@ -15,7 +15,7 @@ with open('Destinations.csv') as destination_f:
     destinationCSV = csv.reader(destination_f, delimiter=',')
     destinationCSV = list(destinationCSV)
 
-    # Method that calculates the distance between two locations
+    # Method that gets the distance between two locations from the parsed distance CSV matrix
     # Time Complexity: Constant or O(1) - the passed-in indexes allows for constant retrieval time
     # Space Complexity: Constant or O(1) - will always create the same number of variables and return 1 float value
     def get_distance(row_value, column_value):
@@ -40,28 +40,13 @@ with open('Destinations.csv') as destination_f:
         # Convert the string timestamp to datetime.timedelta and add it to it's associated truck time list
         if truck_number == 1:
             first_time_list.append(final_time)
-            sum = datetime.timedelta()
-            for i in first_time_list:
-                (h, m, s) = i.split(':')
-                d = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
-                sum += d
-            return sum
+            return calculate_time(first_time_list)
         elif truck_number == 2:
             second_time_list.append(final_time)
-            sum = datetime.timedelta()
-            for i in second_time_list:
-                (h, m, s) = i.split(':')
-                d = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
-                sum += d
-            return sum
+            return calculate_time(second_time_list)
         else:
             third_time_list.append(final_time)
-            sum = datetime.timedelta()
-            for i in third_time_list:
-                (h, m, s) = i.split(':')
-                d = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
-                sum += d
-            return sum
+            return calculate_time(third_time_list)
 
     # Getter to retrieve the destination lists
     def get_addresses():
@@ -113,6 +98,15 @@ with open('Destinations.csv') as destination_f:
         else:
             return third_optimized_truck
 
+    # Method to add up delivery times
+    def calculate_time(time_list):
+        sum = datetime.timedelta()
+        for i in time_list:
+            (h, m, s) = i.split(':')
+            d = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+            sum += d
+        return sum
+
     # The following method is my greedy algorithm used to optimize the delivery route for each truck
     # Time Complexity: Quadratic or O(N^2) - the items traversed grows at a quadratic rate due to two for loops
     # Space Complexity: Quadratic or O(N^2) - the variables created grow at a quadratic rate due to two for loops
@@ -129,12 +123,21 @@ with open('Destinations.csv') as destination_f:
                 # Loop through the entire distance list and find the shortest distance
                 for index in truck_distance_list:
                     if get_distance(current_location, int(index[10])) <= shortest_distance:
-                        shortest_distance = get_distance(current_location, int(index[10]))  # section 3
+                        shortest_distance = get_distance(current_location, int(index[10]))
                         new_location = int(index[10])
                 # Add the delivery object corresponding to the shortest distance index to its associated truck
                 # Then, pop off the just added value from the original passed-in list and recursively repeat the
                 # process until the base case is hit
-                for index in truck_distance_list:  # section 4
+                for index in truck_distance_list:
+                    # move delayed package w/10:30am deadline + other package at same address to front of delivery list
+                    if truck_number == 2:
+                        if index[0] == '25' or index[0] == '26':
+                            second_optimized_truck.append(index)
+                            second_optimized_truck_index_list.append(index[10])
+                            pop_value = truck_distance_list.index(index)
+                            truck_distance_list.pop(pop_value)
+                            current_location = new_location
+                            calculate_shortest_distance(truck_distance_list, 2, current_location)
                     if get_distance(current_location, int(index[10])) == shortest_distance:
                         if truck_number == 1:
                             first_optimized_truck.append(index)

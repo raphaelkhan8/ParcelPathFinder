@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\WGUPS Distance Table (2).csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\WGUPS Distance Table.csv">
           <value>
             <Attribute>
