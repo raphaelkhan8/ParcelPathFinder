@@ -48,6 +48,8 @@ with open('DeliveryInfo.csv') as f:
             second_truck.append(value)
         if 'Delayed' in value[7]:
             second_truck.append(value)
+        if 'East #104' in value[1]:
+            second_truck.append(value)
         # Fix the wrong address package and add it to the first truck (second trip)
         if '84104' in value[4] and '10:30' not in value[5]:
             first_truck_second_trip.append(value)
@@ -79,5 +81,5 @@ with open('DeliveryInfo.csv') as f:
     def get_first_truck_second_trip_packages():
         return first_truck_second_trip
 
-    
+
 
