@@ -46,7 +46,8 @@ class Main:
                 (h, m, s) = input_time.split(':')
                 converted_input_time = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
                 print_delivery_info(i, converted_input_time)
-            except ValueError:
+            except ValueError as e:
+                print(e)
                 print('Please enter a valid input (all or one)')
                 exit()
         elif view == 'exit':

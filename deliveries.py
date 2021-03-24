@@ -135,20 +135,22 @@ def print_delivery_info(index, comparison_time):
         converted_start_time = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
         (h, m, s) = delivered_time.split(':')
         converted_delivered_time = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
-    except ValueError:
+    except ValueError as e:
+        print(e)
         pass
+    global delivered_status
     # After string->time conversions, check packages against the input time to determine if they have left the hub yet
     if converted_start_time >= comparison_time:
-        get_hash_table().get(str(index))[9] = 'At the Hub'
+        delivered_status = 'At the Hub'
     elif converted_start_time <= comparison_time:
         # Then check to see which packages have left the hub but have not been delivered yet
         if comparison_time < converted_delivered_time:
-            get_hash_table().get(str(index))[9] = 'En Route'
+            delivered_status = 'En Route'
         # Then checks all packages that have already been delivered and displays the delivered time
         else:
-            get_hash_table().get(str(index))[9] = 'Delivered at ' + delivered_time
+            delivered_status = 'Delivered at ' + delivered_time
     # Finally, print the delivery info for all packages
     print('ID:', get_hash_table().get(str(index))[0], '  Address:', get_hash_table().get(str(index))[1],
           '  City:', get_hash_table().get(str(index))[2] + ',', get_hash_table().get(str(index))[3],
           '  Zipcode:', get_hash_table().get(str(index))[4], '  Weight:', get_hash_table().get(str(index))[6] + ' lbs',
-          '  Deadline:', get_hash_table().get(str(index))[5], ' Delivery Status:', get_hash_table().get(str(index))[9])
+          '  Deadline:', get_hash_table().get(str(index))[5], ' Delivery Status:', delivered_status)
